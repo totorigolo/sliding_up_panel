@@ -40,10 +40,13 @@ class SlidingUpPanel extends StatefulWidget {
   /// This fades out as the panel is opened.
   final Widget? collapsed;
 
-  /// The Widget that lies underneath the sliding panel.
-  /// This Widget automatically sizes itself
-  /// to fill the screen.
+  /// The Widget that lies underneath the sliding panel. This Widget
+  /// automatically sizes itself to fill the whole screen. In case the body is
+  /// smaller than the screen, you can use [bodyPadding] to prevent overlaps.
   final Widget? body;
+
+  /// Optional padding applied around the [body] widget.
+  final EdgeInsets? bodyPadding;
 
   /// Optional persistent widget that floats above the [panel] and attaches
   /// to the top of the [panel]. Content at the top of the panel will be covered
@@ -164,6 +167,7 @@ class SlidingUpPanel extends StatefulWidget {
       this.panel,
       this.panelBuilder,
       this.body,
+      this.bodyPadding,
       this.collapsed,
       this.minHeight = 100.0,
       this.maxHeight = 500.0,
@@ -264,6 +268,7 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
                   );
                 },
                 child: Container(
+                  padding: widget.bodyPadding,
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   child: widget.body,
